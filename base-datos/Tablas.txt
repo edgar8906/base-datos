@@ -1,0 +1,33 @@
+CREATE TABLE Agencia(id_agencia integer, 
+nombre_agencia varchar2(80), 
+direccion_agencia varchar2(80), 
+CONSTRAINT id_agencia_pk PRIMARY KEY (id_agencia) );
+
+
+CREATE TABLE Reservacion(id_reservacion integer,
+id_agencia integer,
+fecha_inicio DATE,
+fecha_fin DATE,
+CONSTRAINT id_agencia_fk_res FOREIGN KEY (id_agencia),
+REFERENCE Agencia(id_agencia),
+CONSTRAINT id_reservacion_pk PRIMARY KEY (id_reservacion) );
+
+
+CREATE TABLE Cliente(id_cliente integer,
+id_reservacion integer,
+nombre_cliente varchar2(80),
+apellidos_cliente varchar2(80),
+telefono_cliente integer,
+direccion_cliente varchar2(80),
+CONSTRAINT id_reservacion_fk_cli FOREIGN KEY (id_reservacion),
+REFERENCE Reservacion(id_reservacion),
+CONSTRAINT id_cliente_pk PRIMARY KEY (id_cliente) );
+
+
+CREATE TABLE Auto(id_auto integer,
+id_cliente integer,
+placas varchar2(80),
+tipo_auto varchar2(80),
+CONSTRAINT id_cliente_fk_auto FOREIGN KEY (id_cliente),
+REFERENCE Cliente(id_cliente),
+CONSTRAINT id_auto_pk PRIMARY KEY (id_auto) );
