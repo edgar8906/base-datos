@@ -1,0 +1,47 @@
+CREATE OR REPLACE PROCEDURE autenticar_agencia(encontrado out integer,mi_nombre in varchar2, mi_direccion in varchar2) AS
+BEGIN
+FOR I IN (SELECT * FROM Agencia) LOOP
+IF mi_nombre=I.nombre and mi_direccion=I.direccion THEN
+encontrado:=1;
+ELSE
+encontrado:=0;
+END IF;
+END LOOP;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE autenticar_reservacion(encontrado out integer,mi_fecha_inicio in DATE, mi_fecha_fin in DATE) AS
+BEGIN
+FOR I IN (SELECT * FROM Reservacion) LOOP
+IF mi_fecha_inicio=I.fecha_inicio and mi_fecha_fin=I.fecha_fin THEN
+encontrado:=1;
+ELSE
+encontrado:=0;
+END IF;
+END LOOP;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE autenticar_cliente(encontrado out integer,mi_nombre in varchar2, mi_apellidos in varchar2,mi_telefono in integer,mi_direccion invarchar2) AS
+BEGIN
+FOR I IN (SELECT * FROM Cliente) LOOP
+IF mi_nombre=I.nombre and mi_apellidos=I.apellidos and mi_telefono=I.telefono and mi_direccion=I.direccion THEN
+encontrado:=1;
+ELSE
+encontrado:=0;
+END IF;
+END LOOP;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE autenticar_auto(encontrado out integer,mi_placas in varchar2, mi_tipo in varchar2) AS
+BEGIN
+FOR I IN (SELECT * FROM Auto) LOOP
+IF mi_placa=I.placa and mi_tipo=I.tipo THEN
+encontrado:=1;
+ELSE
+encontrado:=0;
+END IF;
+END LOOP;
+END;
+/
