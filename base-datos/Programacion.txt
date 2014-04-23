@@ -1,0 +1,48 @@
+CREATE SEQUENCE secuencia_agencia 
+start with 1
+increment by 1
+nomaxvalue;
+
+CREATE SEQUENCE secuencia_reservaciones 
+start with 1
+increment by 1
+nomaxvalue;
+
+CREATE SEQUENCE secuencia_cliente 
+start with 1
+increment by 1
+nomaxvalue;
+
+CREATE SEQUENCE secuencia_auto 
+start with 1
+increment by 1
+nomaxvalue;
+
+
+CREATE OR REPLACE PROCEDURE Insertar_agencia(my_id out integer,my_nombre in varchar2, my_direccion in varchar2) as
+BEGIN
+SELECT secuencia_agencia.nextval into my_id from dual;
+INSERT INTO Agencia(id_agencia,nombre_agencia,direccion_agencia) values(my_id,my_nombre,my_direccion);
+end;
+/
+
+CREATE OR REPLACE PROCEDURE Insertar_reservacion(my_id out integer,my_id_agencia in integer,my_fecha_inicio in DATE, my_fecha_fin in DATE) as
+BEGIN
+SELECT secuencia_reservaciones.nextval into my_id from dual;
+INSERT INTO Reservaciones(id_reservacion,id_agencia,fecha_inicio,fecha_fin) values(my_id,my_id_agencia,my_fecha_inicio,my_fecha_fin);
+end;
+/
+
+CREATE OR REPLACE PROCEDURE Insertar_cliente(my_id out integer,my_id_reservacion in integer,my_nombre in varchar2, my_apellidos in varchar2,my_telefono in integer,my_direccion invarchar2) as
+BEGIN
+SELECT secuencia_cliente.nextval into my_id from dual;
+INSERT INTO Cliente(id_cliente,id_reservacion,nombre_cliente,apellidos_cliente,telefono_cliente,direccion_cliente) values(my_id,my_id_reservacion,my_nombre,my_apellidos,my_telefono,my_direccion);
+end;
+/
+
+CREATE OR REPLACE PROCEDURE Insertar_auto(my_id out integer,my_id_cliente in integer,my_placas in varchar2, my_tipo in varchar2) as
+BEGIN
+SELECT secuencia_auto.nextval into my_id from dual;
+INSERT INTO Auto(id_auto,id_cliente,placas,tipo_auto) values(my_id,my_id_cliente,my_placas,my_tipo);
+end;
+/
